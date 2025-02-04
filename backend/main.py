@@ -5,6 +5,8 @@ from typing import Annotated
 from fastapi import FastAPI, Depends, Query
 from sqlmodel import Session, select
 from db.models import User
+from routes.html_views.views import router as html_router
+from fastapi.staticfiles import StaticFiles
 
 
 @asynccontextmanager
@@ -16,6 +18,8 @@ async def lifespan(app):
 SessionDep = Annotated[Session, Depends(get_session)]
 
 app = FastAPI(lifespan=lifespan)
+app.include_router(html_router)
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
 @app.get("/")
