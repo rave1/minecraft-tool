@@ -1,5 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from sqlmodel import SQLModel, Field, Column
+import settings
+import jwt
 
 
 class UserIn(BaseModel):
@@ -24,3 +26,14 @@ class User(SQLModel, table=True):
     username: str = Field(unique=True, nullable=False)
     password: str  # hashed
     email: EmailStr | None
+
+    def generate_token(self) -> dict:
+        """
+        Generate token for user.
+        """
+        return {
+            "access_token": jwt.encode(
+                {"username": self.username, "password": self.password},
+                key=settings.SECRET_KEY,
+            )
+        }

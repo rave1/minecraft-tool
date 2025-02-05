@@ -1,12 +1,12 @@
 from fastapi import Request, APIRouter, Form, Depends
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 from forms.auth import LoginForm, RegisterForm
-from db.auth.tools import get_password_hash, auth_user
+from db.auth.tools import get_password_hash, verify_password
 from db.auth.models import User
 from typing import Annotated
 from main import get_session
-from sqlmodel import Session
+from sqlmodel import Session, select
 
 templates = Jinja2Templates(directory="templates")
 router = APIRouter()
@@ -30,11 +30,27 @@ async def register_page(request: Request, error: str = None):
 
 
 @router.post(path="/login/", tags=["auth"])
-async def login_user(request: Request, data: Annotated[LoginForm, Form()]):
+async def login_user(
+    request: Request,
+    data: Annotated[LoginForm, Form()],
+    session: Annotated[Session, Depends(get_session)],
+):
     password = data.password
-    hashed_password = get_password_hash(password)
-    if auth_user(hashed_password):
-        pass
+    try:
+        user: User = session.exec(
+            select(User).where(User.username == data.username)
+        ).one()
+        if verify_password(plain_password=password, hashed_password=user.password):
+            request.session.update(user.generate_token())
+            return RedirectResponse(
+                url="/", status_code=302
+            )  # https://www.webfx.com/web-development/glossary/http-status-codes/what-is-a-302-status-code/
+        else:
+            pass
+    except Exception as e:
+        return templates.TemplateResponse(
+            "login.html", context={"request": request, "error": e}
+        )
 
 
 @router.post(path="/register/", tags=["auth"])
