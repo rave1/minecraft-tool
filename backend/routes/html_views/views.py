@@ -31,7 +31,6 @@ async def register_page(request: Request, error: str = None):
 
 @router.post(path="/login/", tags=["auth"])
 async def login_user(request: Request, data: Annotated[LoginForm, Form()]):
-    username = data.username
     password = data.password
     hashed_password = get_password_hash(password)
     if auth_user(hashed_password):

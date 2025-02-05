@@ -2,8 +2,8 @@ from typing import Union
 from contextlib import asynccontextmanager
 from db.engine import init_db, get_session
 from typing import Annotated
-from fastapi import FastAPI, Depends, Query
-from sqlmodel import Session, select
+from fastapi import FastAPI, Depends
+from sqlmodel import Session
 
 # from db.models import User
 from routes.html_views.views import router as html_router
