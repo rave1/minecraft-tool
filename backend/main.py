@@ -6,11 +6,14 @@ from fastapi import FastAPI, Depends, Request
 from sqlmodel import Session
 from fastapi.security import OAuth2PasswordBearer
 from starlette.middleware.sessions import SessionMiddleware
+from fastapi.templating import Jinja2Templates
 
 # from db.models import User
 from routes.html_views.views import router as html_router
 from fastapi.staticfiles import StaticFiles
 import settings
+
+templates = Jinja2Templates(directory="templates")
 
 
 @asynccontextmanager
@@ -28,9 +31,17 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
 app.add_middleware(SessionMiddleware, secret_key=settings.SECRET_KEY)
 
 
-@app.get("/")
+@app.get("/", name="index")
 def read_root(request: Request):
-    return request.session
+    return templates.TemplateResponse(
+        "index.html",
+        {
+            "request": request,
+            "title": "Home",
+            "active_page": "home",
+            "user": None,  # Replace with actual user data from your auth system
+        },
+    )
 
 
 @app.get("/items/{item_id}")

@@ -20,9 +20,7 @@ async def login_page(request: Request, error: str = None):
     )
 
 
-@router.get(
-    "/register/", response_class=HTMLResponse, tags={"register"}, name="register"
-)
+@router.get("/register/", response_class=HTMLResponse, tags={"auth"}, name="register")
 async def register_page(request: Request, error: str = None):
     return templates.TemplateResponse(
         "register.html", context={"request": request, "error": error}
