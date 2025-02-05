@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from sqlmodel import SQLModel, Field
+from sqlmodel import SQLModel, Field, Column
 
 
 class UserIn(BaseModel):
@@ -21,6 +21,6 @@ class UserInDB(BaseModel):
 
 class User(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
-    username: str
+    username: str = Field(unique=True, nullable=False)
     password: str  # hashed
     email: EmailStr | None

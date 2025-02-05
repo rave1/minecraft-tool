@@ -47,11 +47,18 @@ async def register_user(
     if data.password != data.password1:
         return templates.TemplateResponse(
             "register.html",
-            context={"request": request, "error": "Passwords do not match."},
+            context={"request": request, "error": "Passwords do not match"},
             status_code=400,
         )
     hashed_password = get_password_hash(data.password)
     user = User(username=data.username, password=hashed_password)
-    db.add(user)
-    db.commit()
+    try:
+        db.add(user)
+        db.commit()
+    except Exception as e:
+        return templates.TemplateResponse(
+            "register.html",
+            context={"request": request, "error": "Username taken"},
+            status_code=400,
+        )
     return {"detail": "Created user."}
