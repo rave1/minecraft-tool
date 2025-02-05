@@ -1,6 +1,7 @@
 body {
     font-family: 'Courier New', Courier, monospace;
-    background-color: #f0f0f0;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,55 +10,100 @@ body {
 }
 
 .login-container {
-    background-color: white;
+    background-color: #2a2a2a;
     padding: 2rem;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     width: 100%;
     max-width: 400px;
+    border: 1px solid #3a3a3a;
 }
 
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 label {
     display: block;
     margin-bottom: 0.5rem;
+    color: #b0b0b0;
 }
 
 input {
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 2px;
+    padding: 0.75rem;
+    background-color: #333;
+    border: 1px solid #444;
+    border-radius: 4px;
     box-sizing: border-box;
+    color: #e0e0e0;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #666;
+    box-shadow: 0 0 0 2px rgba(100, 100, 100, 0.3);
 }
 
 button {
     font-family: 'Courier New', Courier, monospace;
     width: 100%;
     padding: 0.75rem;
-    background-color: #333;
-    color: white;
+    background-color: #4a4a4a;
+    color: #ffffff;
     border: none;
-    border-radius: 2px;
+    border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-    background-color: #444;
+    background-color: #5a5a5a;
+}
+
+button:active {
+    background-color: #3a3a3a;
 }
 
 .alert {
     padding: 0.75rem;
     margin-bottom: 1rem;
-    border-radius: 2px;
+    border-radius: 4px;
 }
 
 .alert-error {
-    background-color: #fee;
-    color: #c00;
-    border: 1px solid #fcc;
+    background-color: #442222;
+    color: #ff9999;
+    border: 1px solid #662222;
+}
+
+h1 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+a {
+    color: #8ab4f8;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #acd0ff;
+    text-decoration: underline;
+}
+
+::placeholder {
+    color: #666;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #e0e0e0;
+    -webkit-box-shadow: 0 0 0px 1000px #333 inset;
+    transition: background-color 5000s ease-in-out 0s;
 }
