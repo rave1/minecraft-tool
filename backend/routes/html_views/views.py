@@ -69,7 +69,7 @@ async def register_user(
     try:
         db.add(user)
         db.commit()
-    except Exception as e:
+    except Exception:
         return templates.TemplateResponse(
             "register.html",
             context={"request": request, "error": "Username taken"},

@@ -1,5 +1,5 @@
 from pydantic import BaseModel, EmailStr
-from sqlmodel import SQLModel, Field, Column
+from sqlmodel import SQLModel, Field
 import settings
 import jwt
 
