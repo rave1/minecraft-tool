@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Home") }}</title>
+    <link href="{{ url_for('static', path='style.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{{ url_for('index') }}" class="brand">Soplica is GOD{% if user %}, hello {{user.username}}{% endif %}</a>
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div class="nav-links">
+            <a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a>
+            {% if user %}
+                <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="nav-link {% if active_page == 'login' %}active{% endif %}">Login</a>
+                <a href="{{ url_for('register') }}" class="nav-link {% if active_page == 'register' %}active{% endif %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container">
+        {% if error %}
+        <div class="alert alert-error">
+            {{ error }}
+        </div>
+        {% endif %}
+
+        {% if success %}
+        <div class="alert alert-success">
+            {{ success }}
+        </div>
+        {% endif %}
+
+        {% block content %}
+        <section class="welcome-section">
+            <h1>Sopel Soplica Is Your Daddy</h1>
+            <p class="lead">Your modern web application starts here.</p>
+        </section>
+
+        <section class="features-grid">
+            <div class="feature-card">
+                <h2>Feature One</h2>
+                <p>Description of your first amazing feature goes here.</p>
+            </div>
+            <div class="feature-card">
+                <h2>Feature Two</h2>
+                <p>Description of your second amazing feature goes here.</p>
+            </div>
+            <div class="feature-card">
+                <h2>Feature Three</h2>
+                <p>Description of your third amazing feature goes here.</p>
+            </div>
+        </section>
+        {% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Soplica. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
