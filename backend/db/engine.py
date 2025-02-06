@@ -1,6 +1,8 @@
 from sqlmodel import create_engine, SQLModel, Session
 
-DB_URL = "postgresql+psycopg2://postgres:example@localhost:5432/postgres"  # TODO change to env var
+DB_URL = (
+    "postgresql+psycopg2://postgres:example@db:5432/postgres"  # TODO change to env var
+)
 
 engine = create_engine(DB_URL, echo=True)
 
