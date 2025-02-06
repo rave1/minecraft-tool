@@ -74,13 +74,16 @@ async def register_user(
     try:
         db.add(user)
         db.commit()
+        token = user.generate_token()
+        response = RedirectResponse(url=request.url_for("index"), status_code=302)
+        response.set_cookie(key="Authorization", value=token)
+        return response
     except Exception:
         return templates.TemplateResponse(
             "register.html",
             context={"request": request, "error": "Username taken"},
             status_code=400,
         )
-    return {"detail": "Created user."}
 
 
 @router.get(path="/logout/", tags=["auth"], name="logout")
