@@ -7,7 +7,9 @@
     <link href="{{ url_for('static', path='style.css') }}" rel="stylesheet" />
 </head>
 <body>
-    <div class="login-container">
+<main class="container">
+
+    <div class="feature-card">
         <h1>Login</h1>
         
         {% if error %}
@@ -36,5 +38,6 @@
         </p>
         {% endif %}
     </div>
+</main>
 </body>
 </html>

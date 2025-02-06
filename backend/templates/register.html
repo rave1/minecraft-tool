@@ -7,33 +7,36 @@
     <link href="{{ url_for('static', path='style.css') }}" rel="stylesheet" />
 </head>
 <body>
-    <div class="login-container">
-        <h1>Register</h1>
-        
-        {% if error %}
-        <div class="alert alert-error">
-            {{ error }}
-        </div>
-        {% endif %}
-        
-        <form method="POST" action="{{ url_for('register') }}">
-            <div class="form-group">
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" required>
-            </div>
+    <main class="container">
+
+        <div class="login-container">
+            <h1>Register</h1>
             
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+            {% if error %}
+            <div class="alert alert-error">
+                {{ error }}
             </div>
+            {% endif %}
+            
+            <form method="POST" action="{{ url_for('register') }}">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
 
-            <div class="form-group">
-                <label for="password">Repeat Password:</label>
-                <input type="password1" id="password1" name="password1" required>
-            </div>
+                <div class="form-group">
+                    <label for="password">Repeat Password:</label>
+                    <input type="password1" id="password1" name="password1" required>
+                </div>
 
-            <button type="submit">Register</button>
-        </form>
-    </div>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+    </main>
 </body>
 </html>
