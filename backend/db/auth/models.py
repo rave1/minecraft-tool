@@ -31,9 +31,8 @@ class User(SQLModel, table=True):
         """
         Generate token for user.
         """
-        return {
-            "access_token": jwt.encode(
-                {"username": self.username, "password": self.password},
-                key=settings.SECRET_KEY,
-            )
-        }
+        return jwt.encode(
+            {"username": self.username, "password": self.password},
+            key=settings.SECRET_KEY,
+            algorithm="HS256",
+        )

@@ -9,7 +9,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-brand">
-            <a href="{{ url_for('index') }}" class="brand">Soplica is GOD</a>
+            <a href="{{ url_for('index') }}" class="brand">Soplica is GOD{% if user %}, hello {{user.username}}{% endif %}</a>
             <button class="mobile-menu-btn" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
@@ -19,8 +19,6 @@
         <div class="nav-links">
             <a href="{{ url_for('index') }}" class="nav-link {% if active_page == 'home' %}active{% endif %}">Home</a>
             {% if user %}
-                <a href="{{ url_for('dashboard') }}" class="nav-link {% if active_page == 'dashboard' %}active{% endif %}">Dashboard</a>
-                <a href="{{ url_for('profile') }}" class="nav-link {% if active_page == 'profile' %}active{% endif %}">Profile</a>
                 <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
             {% else %}
                 <a href="{{ url_for('login') }}" class="nav-link {% if active_page == 'login' %}active{% endif %}">Login</a>
