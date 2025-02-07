@@ -10,6 +10,18 @@ services:
     ports:
       - "5432:5432"
 
+  backend:
+    container_name: fastapi
+    env_file:
+      - ./backend/.env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/minecraft-tool:rw
+    ports:
+      - 8000:8000
+
   adminer:
     image: adminer
     restart: always
